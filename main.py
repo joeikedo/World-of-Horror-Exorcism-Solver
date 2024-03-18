@@ -1,8 +1,3 @@
-def addLetterHelper(index, inputString):
-    if(index == 0):
-        return inputString + 'B'
-    else:
-        return inputString + 'C'
 
 
 def listElementAddHelper(inputList):
@@ -13,57 +8,51 @@ def listElementAddHelper(inputList):
 
     return returnList
 
-def generateEveryPossiblePermutation2(numOfCharacters):
+def generateEveryPossiblePermutation(numOfCharacters):
     returnList = ['B', 'C']
     if (numOfCharacters == 1):
         return returnList
     else:
-        for i in range(numOfCharacters):
+        for i in range(numOfCharacters - 1):
             returnList = listElementAddHelper(returnList)
         return returnList
 
 
-# TODO: For fun, refactor this to be a function with variable number of characters, not just 5 hardcoded loops.
-def generateEveryPossiblePermutation():
-    permutationList = []
-    currentPermutationString = ''
-    for i in range(2):
-        currentPermutationString = addLetterHelper(i, currentPermutationString)
-        for j in range(2):
-            currentPermutationString = addLetterHelper(j, currentPermutationString)
-            for k in range(2):
-                currentPermutationString = addLetterHelper(k, currentPermutationString)
-                for l in range(2):
-                    currentPermutationString = addLetterHelper(l, currentPermutationString) 
-                    for m in range(2):
-                        currentPermutationString = addLetterHelper(m, currentPermutationString) 
-                        permutationList.append(currentPermutationString)
-                        # Remove last character of string to clear for next iteration of this loop.
-                        currentPermutationString = currentPermutationString[:-1] 
-
-                    # Clear fourth (l) iteration         
-                    currentPermutationString = currentPermutationString[:-1]   
-
-                # Clear third (k) iteration         
-                currentPermutationString = currentPermutationString[:-1]   
-
-            # Clear second (j) iteration         
-            currentPermutationString = currentPermutationString[:-1]     
-
-        # Clear outermost (i) iteration
-        currentPermutationString = ''
-    
-    return permutationList
+def checkElementIsMatchHelper(attemptedPermutation, listElement, numCharsThatShouldMatch):
+    numCharsThatShouldNotMatch = len(attemptedPermutation) - int(numCharsThatShouldMatch)
+    matchCounter = 0
+    notMatchCounter = 0
+    for i in range(len(listElement)):
+        if(listElement[i] == attemptedPermutation[i]):
+            matchCounter += 1
+        else:
+            notMatchCounter += 1
         
+        if( (matchCounter > int(numCharsThatShouldMatch)) or (notMatchCounter > numCharsThatShouldNotMatch)):
+            return False
+    
+    return True
+
+
+def narrowDownList(possiblePermutationsList, attemptedPermutation, numberCharsCorrect):
+    returnList = []
+    for element in possiblePermutationsList:
+        if(checkElementIsMatchHelper(attemptedPermutation, element, numberCharsCorrect)):
+            returnList.append(element)
+    
+    print(returnList)
+    return returnList
+
 
 def main():
-    list = generateEveryPossiblePermutation()
-    print(list)
-    print(len(list))
-
-    list = generateEveryPossiblePermutation2(4)
-    print(list)
-    print(len(list))
+    possiblePermutationsList = generateEveryPossiblePermutation(3)
+    print(possiblePermutationsList)
+    while(True):
+        attemptedPermutation = input("Enter attempted permutation: ")
+        numberCharsCorrect = input("Enter number of chars correct: ")
+        print(attemptedPermutation)
+        print(numberCharsCorrect)
+        possiblePermutationsList = narrowDownList(possiblePermutationsList, attemptedPermutation, numberCharsCorrect)
 
 
 if __name__ == '__main__':
