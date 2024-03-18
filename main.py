@@ -4,6 +4,25 @@ def addLetterHelper(index, inputString):
     else:
         return inputString + 'C'
 
+
+def listElementAddHelper(inputList):
+    returnList = []
+    for element in inputList:
+        returnList.append(element + 'B')
+        returnList.append(element + 'C')
+
+    return returnList
+
+def generateEveryPossiblePermutation2(numOfCharacters):
+    returnList = ['B', 'C']
+    if (numOfCharacters == 1):
+        return returnList
+    else:
+        for i in range(numOfCharacters):
+            returnList = listElementAddHelper(returnList)
+        return returnList
+
+
 # TODO: For fun, refactor this to be a function with variable number of characters, not just 5 hardcoded loops.
 def generateEveryPossiblePermutation():
     permutationList = []
@@ -39,6 +58,10 @@ def generateEveryPossiblePermutation():
 
 def main():
     list = generateEveryPossiblePermutation()
+    print(list)
+    print(len(list))
+
+    list = generateEveryPossiblePermutation2(4)
     print(list)
     print(len(list))
 
