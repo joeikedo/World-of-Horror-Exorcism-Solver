@@ -14,9 +14,14 @@ def generateEveryPossiblePermutation():
             currentPermutationString = addLetterHelper(j, currentPermutationString)
             for k in range(2):
                 currentPermutationString = addLetterHelper(k, currentPermutationString)
-                permutationList.append(currentPermutationString)
-                # Remove last character of string to clear for next iteration of this loop.
-                currentPermutationString = currentPermutationString[:-1] 
+                for l in range(2):
+                    currentPermutationString = addLetterHelper(k, currentPermutationString) 
+                    permutationList.append(currentPermutationString)
+                    # Remove last character of string to clear for next iteration of this loop.
+                    currentPermutationString = currentPermutationString[:-1] 
+
+                # Clear third (k) iteration         
+                currentPermutationString = currentPermutationString[:-1]   
 
             # Clear second (j) iteration         
             currentPermutationString = currentPermutationString[:-1]     
@@ -28,7 +33,9 @@ def generateEveryPossiblePermutation():
         
 
 def main():
-    print(generateEveryPossiblePermutation())
+    list = generateEveryPossiblePermutation()
+    print(list)
+    print(len(list))
 
 
 if __name__ == '__main__':
