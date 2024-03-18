@@ -1,4 +1,4 @@
-
+# TODO: Could add option for locking first two actions given from Rooftop Girl? Meh, idk...
 
 def listElementAddHelper(inputList):
     returnList = []
