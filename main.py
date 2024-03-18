@@ -15,10 +15,15 @@ def generateEveryPossiblePermutation():
             for k in range(2):
                 currentPermutationString = addLetterHelper(k, currentPermutationString)
                 for l in range(2):
-                    currentPermutationString = addLetterHelper(k, currentPermutationString) 
-                    permutationList.append(currentPermutationString)
-                    # Remove last character of string to clear for next iteration of this loop.
-                    currentPermutationString = currentPermutationString[:-1] 
+                    currentPermutationString = addLetterHelper(l, currentPermutationString) 
+                    for m in range(2):
+                        currentPermutationString = addLetterHelper(m, currentPermutationString) 
+                        permutationList.append(currentPermutationString)
+                        # Remove last character of string to clear for next iteration of this loop.
+                        currentPermutationString = currentPermutationString[:-1] 
+
+                    # Clear fourth (l) iteration         
+                    currentPermutationString = currentPermutationString[:-1]   
 
                 # Clear third (k) iteration         
                 currentPermutationString = currentPermutationString[:-1]   
